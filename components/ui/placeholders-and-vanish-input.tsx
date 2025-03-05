@@ -175,16 +175,35 @@ export function PlaceholdersAndVanishInput({
     fontSize: `${(fontSize / 16) * 1.25}rem`,
   };
 
+  const validateNIC = (nic: string): boolean => {
+    const oldFormat = /^[0-9]{2}[0-9]{3}[0-9]{3}[0-9]{1}[VX]$/i;
+    const newFormat = /^[0-9]{4}[0-9]{3}[0-9]{4}[0-9]$/;
+  
+    return oldFormat.test(nic) || newFormat.test(nic);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    vanishAndSubmit();
-    onSubmit && onSubmit(e);
   
-    if (inputRef.current?.value) {
-      const submittedValue = inputRef.current.value;
-      window.location.href = `/web/app?input=${encodeURIComponent(submittedValue)}`;
+    // Get the NIC value
+    const nicValue = inputRef.current?.value;
+  
+    if (nicValue) {
+      // Check if the NIC is valid
+      if (validateNIC(nicValue)) {
+        // Proceed with the submit logic
+        vanishAndSubmit();
+        onSubmit && onSubmit(e);
+  
+        // Redirect or process the valid NIC further
+        window.location.href = `/web/validator?input=${encodeURIComponent(nicValue)}`;
+      } else {
+        // Show an error message for invalid NIC
+        alert("Invalid NIC. Please enter a valid NIC.");
+      }
     }
   };
+  
   return (
     <form
       className={cn(

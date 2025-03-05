@@ -48,7 +48,7 @@ for (let i = 0; i < 10; i++) {
 
   return (
     <div
-      className="h-full my-10 flex flex-col justify-center items-center px-4 z-40"
+      className="h-full flex flex-col justify-center items-center px-4 z-40"
       style={{
         fontSize: `${fontSize / 16}rem`,
       }}
@@ -58,6 +58,10 @@ for (let i = 0; i < 10; i++) {
   style={{
     fontSize: `${fontSize / 16 * 3}rem`,
     color: highContrast ? "var(--color-accent)" : accentColor,
+    padding: "0.5rem",
+    borderRadius: "8px", 
+    backdropFilter: "blur(10px)",
+    backgroundColor: highContrast ? "var(--color-background)" : "var(--color-background-100)",
   }}
   aria-live="polite"
 >
@@ -69,7 +73,7 @@ for (let i = 0; i < 10; i++) {
         placeholders={placeholders}
         onChange={handleChange}
         onSubmit={onSubmit}
-        aria-label="Text input for AI-powered questions"
+        aria-label="Text input for NIC Validation"
         
       />
     </div>

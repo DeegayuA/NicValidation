@@ -1,5 +1,5 @@
 "use client";
-export const APP_VERSION = "V0.0.1_Beta";
+export const APP_VERSION = "V0.0.2_Beta";
 
 export const SUPPORTED_LANGUAGES = [
   { code: "en", name: "English", flag: "🇬🇧" },

@@ -37,8 +37,8 @@ export const FloatingNav = ({
         link?: string;
         onClick?: () => void;
         icon?: JSX.Element;
-        tooltip?: string; // Tooltip text
-        hideOnMd?: boolean; // New prop to hide nav item on larger screens
+        tooltip?: string; 
+        hideOnMd?: boolean; 
     }[];
     className?: string;
 }) => {
@@ -51,7 +51,6 @@ export const FloatingNav = ({
     const { setTheme, theme } = useTheme();
     const router = useRouter()
 
-    // Calculate dynamic font size
     const dynamicFontSize = `${(fontSize / 16) * 1}rem`;
 
     return (
@@ -65,8 +64,8 @@ export const FloatingNav = ({
                 )}
                 style={{
                     background: `linear-gradient(to right, ${accentColor}, ${document.documentElement.classList.contains('dark')
-                        ? darkenAccentColor(accentColor) // Apply darkened color in dark mode
-                        : lightenAccentColor(accentColor) // Apply lightened color in light mode
+                        ? darkenAccentColor(accentColor) 
+                        : lightenAccentColor(accentColor)
                         })`,
                 }}
             >
@@ -133,8 +132,8 @@ export const FloatingNav = ({
                 <HoverBorderGradient
                     className="text-black dark:text-white flex items-center"
                     as="button"
-                    onClick={() => router.push('/login/login')}
-                    style={{ backgroundColor: accentColor }} // Apply dynamic color here
+                    onClick={() => router.push('/login')}
+                    style={{ backgroundColor: accentColor }} 
                 >
                     {/* Show text on larger screens */}
                     <span className="flex items-center">
