@@ -11,6 +11,7 @@
             "prisma:migrate": "prisma migrate dev --name lifesight"
       },
       "dependencies": {
+            "@auth/core": "^0.34.2",
             "@google/generative-ai": "^0.2.0",
             "@hookform/resolvers": "^3.9.0",
             "@next/swc-wasm-nodejs": "15.1.5",

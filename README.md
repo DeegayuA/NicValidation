@@ -1,2 +1,2 @@
 # NicValidation
- mobiOs assigment 
+ mobiOs assigment

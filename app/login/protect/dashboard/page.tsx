@@ -1,15 +1,16 @@
-'use client'
+import { getSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
-import {Button} from "@/components/ui/button";
-import {useRouter} from "next/navigation";
+export default async function Dashboard() {
+  const session = await getSession();
+  if (!session) {
+    redirect("/login");
+  }
 
-const Dashboard = () => {
-    const router = useRouter()
-
-    return <>
-        <h1>Admin Dashboard Page</h1>
-        <Button onClick={() => router.push('/admin/protect/addEditAdmin')}>Admin Add Edit</Button>
-    </>
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <p>Welcome, {session.user?.name}!</p>
+    </div>
+  );
 }
-
-export default Dashboard
