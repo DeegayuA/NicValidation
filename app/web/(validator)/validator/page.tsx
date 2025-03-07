@@ -173,7 +173,7 @@ export default function Validator() {
                                             <li><strong>Serial Number:</strong> {nicDetails.serialNumber || "N/A"}</li>
                                             <li><strong>Check Digit:</strong> {nicDetails.checkDigit || "N/A"}</li>
                                             <li><strong>Day of Year:</strong> {nicDetails.birthDayOfYear || "N/A"}</li>
-                                            <li><strong>Voting Eligibility:</strong> {nicDetails.votingEligibility || "Unknown"}</li>
+                                            <li><strong>Voting Eligibility: (remove this) </strong> {nicDetails.votingEligibility || "Unknown"}</li>
                                         </ul>
 
                                         <h5 className="text-xl font-semibold text-center mt-8">IP Location Details</h5>
