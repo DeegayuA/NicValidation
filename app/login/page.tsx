@@ -9,6 +9,7 @@ import {
   IconBrandGoogle,
   IconBrandApple,
 } from "@tabler/icons-react";
+import { Button } from "@radix-ui/themes/components/button";
 
 export default function SignupForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +43,8 @@ export default function SignupForm() {
           Login &rarr;
           <BottomGradient />
         </button>
+        <Button variant="ghost" onClick={() => window.location.href = '/signup'} className="pr-2 w-full text-right text-xs" >Need Account? Sign Up</Button>
+
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 

@@ -5,11 +5,16 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 
 const handler = NextAuth({
+  debug: true,
+  session: {
+    strategy: "jwt", 
+    maxAge: 24 * 60 * 60,
+  },
   providers: [
-    AppleProvider({
-      clientId: process.env.APPLE_ID!,
-      clientSecret: process.env.APPLE_SECRET!,
-    }),
+    // AppleProvider({
+    //   clientId: process.env.APPLE_ID!,
+    //   clientSecret: process.env.APPLE_SECRET!,
+    // }),
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
@@ -19,16 +24,21 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_SECRET!,
     }),
   ],
-  // adapter: PrismaAdapter(prisma),
-  // secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async redirect({ url, baseUrl }) {
-      return "/dashboard";
+      return "/login/protect/dashboard";
     },
   },
-  //You can add more customization and options here.
+  pages: {
+    signIn: '/auth/signin',
+    signOut: '/auth/signout',
+    error: '/auth/error', 
+    verifyRequest: '/auth/verify-request', 
+    newUser: '/auth/new-user' 
+  },
 });
-// const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, options);
 
+const authHandler: NextApiHandler = (req, res) => NextAuth(req, res, handler);
 
 export { handler as GET, handler as POST };

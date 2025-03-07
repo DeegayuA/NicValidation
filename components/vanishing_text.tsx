@@ -36,6 +36,7 @@ for (let i = 0; i < 10; i++) {
 
   const words = [
     "NIC number",
+    "NIC number",
   ];
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);

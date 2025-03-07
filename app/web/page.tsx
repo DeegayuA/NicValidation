@@ -3,8 +3,6 @@
 import { Playfair_Display } from "next/font/google";
 import { useSettings } from "@/components/settings-provider";
 import React, { useEffect, useState } from "react";
-import { MultiStepLoader as Loader } from "@/components/ui/multi-step-loader";
-import { cn } from "@/lib/utils";
 import { PlaceholdersAndVanishInputDemo } from "@/components/vanishing_text";
 import { useRouter } from 'next/navigation'; 
 import { GlobeDemo } from "./globe-component";

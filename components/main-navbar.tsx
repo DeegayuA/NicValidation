@@ -23,8 +23,7 @@ import { LanguagePanel } from './LanguagePanel';
 export function MainNavbar() {
   const { setTheme, theme } = useTheme(); // Using useTheme hook
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [languageOpen, setLanguageOpen] = useState(false); // New state for language panel
-
+  const [languageOpen, setLanguageOpen] = useState(false); 
   const { accentColor, fontSize, setAccentColor } = useSettings();
 
   const handleThemeChange = () => {
@@ -91,24 +90,21 @@ export function MainNavbar() {
     //     <IconUsersGroup className="h-3 w-3 sm:h-5 sm:w-5 bg-transparent text-foreground hover:filter hover:brightness-110 hover:hue-rotate(10deg) hover:bg-muted/10 hover:text-accent-foreground" />
     //   ),
     // },
-    { 
-      name: "|", 
-      divider: true, 
-      icon: <Dot className="h-3 w-3 sm:h-3 sm:w-3 text-foreground" /> 
-    },
     {
       name: "Settings",
-      onClick: () => setSettingsOpen(true),  // Opens the popup instead of navigating
+      onClick: () => setSettingsOpen(true),
       icon: <Settings className="h-3 w-3 sm:h-5 sm:w-5 bg-transparent text-foreground hover:filter hover:brightness-110 hover:hue-rotate(10deg) hover:bg-muted/10 hover:text-accent-foreground" />,
+      fontSizeClass: fontSize ? `text-${fontSize}` : 'text-base', // Dynamically set font size
     },
     {
       name: "Language",
       onClick: () => setLanguageOpen(true),
-      icon: <Globe className="h-3 w-3 sm:h-5 sm:w-5 text-foreground hover:text-accent-foreground" />, // Mobile icon
+      icon: <Globe className="h-3 w-3 sm:h-5 sm:w-5 text-foreground hover:text-accent-foreground" />,
+      fontSizeClass: fontSize ? `text-${fontSize}` : 'text-base', // Dynamically set font size
     },
     {
       name: theme === "light" ? "Dark" : theme === "dark" ? "Light" : "System",
-      onClick: handleThemeChange,  // Calls the function to toggle themes
+      onClick: handleThemeChange,
       icon: (
         theme === "light" ? (
           <Moon className="h-3 w-3 sm:h-5 sm:w-5 bg-transparent text-foreground hover:filter hover:brightness-110 hover:hue-rotate(10deg) hover:bg-muted/10 hover:text-accent-foreground" />
@@ -118,6 +114,7 @@ export function MainNavbar() {
           <SunMoon className="h-3 w-3 sm:h-5 sm:w-5 bg-transparent text-foreground hover:filter hover:brightness-110 hover:hue-rotate(10deg) hover:bg-muted/10 hover:text-accent-foreground" />
         )
       ),
+      fontSizeClass: fontSize ? `text-${fontSize}` : 'text-base', // Dynamically set font size
     },
     { 
       name: "|", 
@@ -128,14 +125,17 @@ export function MainNavbar() {
   ];
 
   return (
-
     <header className={cn("sticky top-0 z-50 backdrop-blur-md border-b w-full")} style={{ backgroundColor: accentColor }}>
-      <div className="fixed  w-full">
-        <FloatingNav navItems={navItems} />
+      <div className="fixed w-full">
+        <FloatingNav 
+          navItems={navItems.map(item => ({
+            ...item,
+            className: item.fontSizeClass 
+          }))} 
+        />
       </div>
       <SettingsPanel open={settingsOpen} onOpenChange={setSettingsOpen} />
       <LanguagePanel open={languageOpen} onOpenChange={setLanguageOpen} />
-
     </header>
   );
 }

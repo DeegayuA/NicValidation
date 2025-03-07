@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import chroma from "chroma-js";
 import { useSettings } from '@/components/settings-provider';
+import { useRouter } from 'next/router';
+
+
 
 function darkenAccentColor(color: string | number | { [key: string]: number; } | chroma.Color) {
     return chroma(color).darken(1).hex();
@@ -16,7 +19,8 @@ function lightenAccentColor(color: string | number | { [key: string]: number; } 
 export function GlobeDemo() {
     const { accentColor, theme, fontSize } = useSettings();
     const [globeKey, setGlobeKey] = useState(0);
-    const [isClient, setIsClient] = useState(false);
+    const [isClient, setIsClient] = useState(false)
+
     const polygonColor = useSettings().theme === "dark"
         ? "rgba(255, 255, 255, 0.3)"  // darker for dark mode
         : "rgba(255, 255, 255, 0.7)"; // lighter for light mode
@@ -43,14 +47,14 @@ export function GlobeDemo() {
         autoRotate: true,
         autoRotateSpeed: 0.9,
     };
-
     useEffect(() => {
         setIsClient(true);
-    }, [])
+    }, []);
 
     useEffect(() => {
         setGlobeKey(prevKey => prevKey + 1);
     }, [accentColor]);
+
 
     const colors = [accentColor, lightenAccentColor(accentColor), darkenAccentColor(accentColor)];
 
@@ -637,3 +641,7 @@ export function GlobeDemo() {
         </div>
     );
 }
+function setWindowWidth(innerWidth: number) {
+    throw new Error("Function not implemented.");
+}
+

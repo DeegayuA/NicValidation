@@ -9,6 +9,7 @@ import {
   IconBrandGoogle,
   IconBrandApple,
 } from "@tabler/icons-react";
+import { Button } from "@radix-ui/themes/components/button";
 
 export default function SignupForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,6 +53,7 @@ export default function SignupForm() {
           Sign up &rarr;
           <BottomGradient />
         </button>
+        <Button variant="ghost" onClick={() => window.location.href = '/login'} className="pr-2 w-full text-right text-xs" >Have Account? Log In</Button>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
@@ -78,7 +80,7 @@ export default function SignupForm() {
             </span>
             <BottomGradient />
           </button>
-          <button
+          {/* <button
             className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-black rounded-md h-10 font-medium shadow-input bg-gray-50 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
             type={"button"}
             onClick={() => signIn("apple", { callbackUrl: "/dashboard" })}
@@ -88,7 +90,7 @@ export default function SignupForm() {
               Apple
             </span>
             <BottomGradient />
-          </button>
+          </button> */}
         </div>
       </form>
     </div>
