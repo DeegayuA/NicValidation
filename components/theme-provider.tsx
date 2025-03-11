@@ -1,30 +1,6 @@
 "use client";
-
-import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { ThemeProvider as NextThemeProvider, useTheme } from 'next-themes';
-
-const ThemeFixer = () => {
-  const { theme, setTheme, systemTheme } = useTheme();
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-
-    if (storedTheme === '"system"') {
-      localStorage.setItem("theme", "system");
-      setTheme("system");
-    }
-
-    // Ensure correct application of "system" theme
-    if (theme === "system" && systemTheme) {
-      setTheme(systemTheme);
-    }
-  }, [theme, systemTheme, setTheme]);
-
-  return null;
-};
-
-export { ThemeFixer };
 
 const CustomThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mounted, setMounted] = useState(false);
@@ -40,9 +16,10 @@ const CustomThemeProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <NextThemeProvider
       attribute="class"  // Use 'class' instead of 'data-theme' to modify HTML class attribute for TailwindCSS compatibility
-      defaultTheme="system"  // Use system preference as default theme
-      enableSystem  // Enable switching based on system theme
-      disableTransitionOnChange={false}  // Optionally disable CSS transitions when switching themes
+      enableSystem={false}  // Disable system theme preference
+      enableColorScheme={true} // Enable color scheme to respect 'dark' or 'light' classes
+      disableTransitionOnChange={false}  // Optional: to avoid transition effects when switching themes
+      defaultTheme="dark"  // Set 'dark' as the default theme
     >
       {children}
     </NextThemeProvider>

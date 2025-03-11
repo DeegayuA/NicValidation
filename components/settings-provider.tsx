@@ -14,10 +14,10 @@ type SettingsContextType = {
   antiFlicker: boolean;
   hapticFeedback: boolean;
   accentColor: string;
-  theme: 'system' | 'dark' | 'light';
+  theme: 'dark' | 'light';
   palette: string;
   accentRgb: string;
-  setTheme: (theme: 'system' | 'dark' | 'light') => void;
+  setTheme: (theme: 'dark' | 'light') => void;
   setFontSize: (size: number) => void;
   setLineHeight: (height: number) => void;
   setLetterSpacing: (spacing: number) => void;
@@ -41,10 +41,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [screenReader, setScreenReader] = useLocalStorage('screenReader', false);
   const [antiFlicker, setAntiFlicker] = useLocalStorage('antiFlicker', false);
   const [hapticFeedback, setHapticFeedback] = useLocalStorage('hapticFeedback', false);
-
-  // Ensure that the theme is handled as a string value (e.g., "system", "dark", "light")
-  const [theme, setTheme] = useLocalStorage<'system' | 'dark' | 'light'>('theme', 'system');
-
+  const [theme, setTheme] = useLocalStorage<'dark' | 'light'>('theme', 'dark');
   const [accentColor, setAccentColor] = useLocalStorage('accentColor', ACCENT_COLORS[4].lightMode);
   const [palette, setPalette] = useLocalStorage('palette', 'palette-1');
   const [accentRgb, setAccentRgb] = useLocalStorage('accentRgb', '230, 85%, 60%');

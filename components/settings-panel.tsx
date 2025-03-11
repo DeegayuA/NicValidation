@@ -12,13 +12,12 @@ import {
 import { Button } from '@/components/ui/button';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
-import { useLocalStorage } from '@/hooks/use-local-storage';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { useSettings } from '@/components/settings-provider';
 import { Circle, Moon, Sun } from 'lucide-react';
-import { THEME_COLORS, ACCENT_COLORS, getRandomColor } from '@/lib/constants';
+import { ACCENT_COLORS, getRandomColor } from '@/lib/constants';
 import {
   Tooltip,
   TooltipContent,
@@ -102,11 +101,6 @@ export function SettingsPanel({ open, onOpenChange }: SettingsPanelProps) {
     return () => observer.disconnect();
   }, [accentColor]);
 
-
-  const handleThemeChange = () => {
-    setNextTheme(theme === 'light' ? 'dark' : 'light');
-  };
-
   const handleHapticFeedbackChange = (haptic: boolean) => {
     setHapticFeedback(haptic);
     if (haptic && typeof window !== 'undefined' && 'vibrate' in navigator) {
@@ -125,7 +119,6 @@ export function SettingsPanel({ open, onOpenChange }: SettingsPanelProps) {
     setScreenReader(false);
     setAntiFlicker(false);
     setHapticFeedback(false);
-    setAccentColor(ACCENT_COLORS[0].darkMode);
     setPalette('palette-1');
   };
 
@@ -159,12 +152,6 @@ export function SettingsPanel({ open, onOpenChange }: SettingsPanelProps) {
       setIsRandom(false);
       setAccentColor(color);
     }
-  };
-  
-
-
-  const handlePaletteChange = (palette: string) => {
-    setPalette(palette);
   };
 
   return (

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useSettings } from "@/components/settings-provider";
 import React, { useState } from "react";
@@ -7,14 +7,16 @@ import { FileUpload } from "@/components/ui/file-upload";
 import { Button } from "@/components/ui/button";
 import { GlobeDemo } from "./globe-component";
 import { PlaceholdersAndVanishInputDemo } from "@/components/vanishing_text";
+import BulkValidatorPage from "./bulk-val";
 
 export default function Home() {
   const { fontSize = 16 } = useSettings();
   const [files, setFiles] = useState<File[]>([]);
-  const router = useRouter(); 
+  const [hasFilesInBulkValidator, setHasFilesInBulkValidator] = useState(false); // Track if files are in BulkValidatorPage
+  const router = useRouter();
 
   const handleFileUpload = (uploadedFiles: File[]) => {
-    setFiles(uploadedFiles);  
+    setFiles(uploadedFiles);
     sessionStorage.setItem('uploadedFiles', JSON.stringify(uploadedFiles));
   };
 
@@ -44,20 +46,24 @@ export default function Home() {
     }
   };
 
+  const handleFilesInBulkValidator = (hasFiles: boolean) => {
+    setHasFilesInBulkValidator(hasFiles);
+  };
+
   return (
     <div style={{ fontSize: `${fontSize / 16}rem` }}>
-      <section className="rounded-lg relative h-[60vh] flex items-center justify-center overflow-hidden mx-auto z-20 max-w-[1280px] mt-[5rem]" aria-labelledby="hero-heading">
-      <div className="absolute inset-0">
-        {/* <GlobeDemo /> */}
-      </div>
-        <div className="relative z-20 text-center">
-        {!files.length && <PlaceholdersAndVanishInputDemo />}
-          <FileUpload onChange={handleFileUpload} />
-          {files.length > 0 && (
-            <Button onClick={handleSubmit} className="mt-4">
-              Submit Files
-            </Button>
-          )}
+      <section className="rounded-lg relative min-h-[60vh] flex items-center justify-center overflow-hidden mx-auto z-20 max-w-[1280px] mt-[5rem]" aria-labelledby="hero-heading">
+        <div className="absolute inset-0">
+          <GlobeDemo />
+        </div>
+        <div className="relative z-20 text-center w-auto">
+          {/* Hide the vanishing input if files exist in BulkValidatorPage */}
+          {!hasFilesInBulkValidator && <PlaceholdersAndVanishInputDemo />}
+
+          <BulkValidatorPage
+            files={files}  // Pass the files state
+            onFilesChange={handleFilesInBulkValidator}
+          />
         </div>
       </section>
     </div>

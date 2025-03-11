@@ -6,16 +6,23 @@ import { cn } from '@/lib/utils';
 import { Josefin_Sans } from 'next/font/google';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { SettingsProvider } from "@/components/settings-provider";  // Ensure this is imported
-import { ThemeFixer, ThemeProvider } from "@/components/theme-provider";
-import { Theme } from "@radix-ui/themes";
+import { SettingsProvider } from "@/components/settings-provider";
 import { LanguageProvider } from "@/components/language-provider";
+import { TooltipProvider } from "@/components/ui/tooltip"; // Import TooltipProvider
 import TransitionWrapper from '@/components/TransitionWrapper';
 import { useState } from 'react';
 import { MainNavbar } from '@/components/main-navbar';
 import { MainFooter } from '@/components/main-footer';
 import { Toaster } from 'sonner';
 import { LayoutWrapper } from '@/components/layout-wrapper';
+import dynamic from 'next/dynamic';
+import { useTheme } from 'next-themes';
+
+
+// Lazy load ThemeProvider
+const ThemeProvider = dynamic(() => import('@/components/theme-provider').then((mod) => mod.ThemeProvider), { 
+  ssr: false  // Disable server-side rendering to load only on the client side
+});
 
 const inter = Inter({ subsets: ['latin'] });
 const josefinSans = Josefin_Sans({ subsets: ['latin'] });
@@ -43,7 +50,7 @@ const loadingStates = [
 
 export default function RootLayout({ children }: { children: React.ReactNode; }) {
     const [loading, setLoading] = useState(false);
-
+    const { resolvedTheme } = useTheme();
     return (
         <html lang="en" suppressHydrationWarning className="h-full">
             <head>
@@ -60,19 +67,20 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
                 <TransitionWrapper setLoading={setLoading}>
                     <SettingsProvider>
                         <LayoutWrapper>
-                            <Theme>
-                                <ThemeFixer />
+                            <TooltipProvider> 
                                 <ThemeProvider>
                                     <LanguageProvider>
                                         <MainNavbar />
+                                        <div style={{ color: resolvedTheme === 'dark' ? 'white' : 'black' }}>
                                         <div id='web' className="flex-1">
                                             {children}
+                                        </div>
                                         </div>
                                         <MainFooter />
                                         <Toaster />
                                     </LanguageProvider>
                                 </ThemeProvider>
-                            </Theme>
+                            </TooltipProvider>
                         </LayoutWrapper>
                     </SettingsProvider>
                 </TransitionWrapper>
