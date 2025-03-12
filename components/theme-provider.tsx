@@ -19,7 +19,6 @@ const CustomThemeProvider = ({ children }: { children: React.ReactNode }) => {
       enableSystem={false}  // Disable system theme preference
       enableColorScheme={true} // Enable color scheme to respect 'dark' or 'light' classes
       disableTransitionOnChange={false}  // Optional: to avoid transition effects when switching themes
-      defaultTheme="dark"  // Set 'dark' as the default theme
     >
       {children}
     </NextThemeProvider>

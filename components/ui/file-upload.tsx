@@ -73,7 +73,7 @@ export const FileUpload = ({
             Drag or drop your files here or click to upload
           </p> */}
           <div className="relative w-full max-w-xl mx-auto">
-            <div className="max-h-48 overflow-y-auto rounded-md my-4">
+            <div className="max-h-48 overflow-y-auto rounded-md">
               {files.length > 0 &&
                 files.map((file, idx) => (
                   <motion.div

@@ -48,7 +48,7 @@ const loadingStates = [
     },
 ];
 
-export default function RootLayout({ children }: { children: React.ReactNode; }) {
+export default function RootLayout({ children }: { readonly children: React.ReactNode; }) {
     const [loading, setLoading] = useState(false);
     const { resolvedTheme } = useTheme();
     return (
@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
                                 <ThemeProvider>
                                     <LanguageProvider>
                                         <MainNavbar />
-                                        <div style={{ color: resolvedTheme === 'dark' ? 'white' : 'black' }}>
+                                        <div style={{ color: resolvedTheme === 'dark' ? 'black' : 'white' }}>
                                         <div id='web' className="flex-1">
                                             {children}
                                         </div>
