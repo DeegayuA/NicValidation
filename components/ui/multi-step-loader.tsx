@@ -111,8 +111,8 @@ export const MultiStepLoader = ({
   const [currentState, setCurrentState] = useState(0);
 
   useEffect(() => {
-    if (!loading) {
-      setCurrentState(0);
+    if (!loading || !loadingStates || loadingStates.length === 0) {
+      setCurrentState(0); // Reset state if loadingStates is empty or undefined
       return;
     }
     const timeout = setTimeout(() => {
@@ -124,9 +124,9 @@ export const MultiStepLoader = ({
           : Math.min(prevState + 1, loadingStates.length - 1)
       );
     }, duration);
-
+  
     return () => clearTimeout(timeout);
-  }, [currentState, loading, loop, loadingStates.length, duration]);
+  }, [currentState, loading, loop, loadingStates, duration]);
   return (
     <AnimatePresence mode="wait">
       {loading && (

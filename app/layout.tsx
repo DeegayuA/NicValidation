@@ -1,5 +1,4 @@
-"use client";
-
+'use client'
 import './globals.css';
 import { Inter } from 'next/font/google';
 import { cn } from '@/lib/utils';
@@ -17,7 +16,8 @@ import { Toaster } from 'sonner';
 import { LayoutWrapper } from '@/components/layout-wrapper';
 import dynamic from 'next/dynamic';
 import { useTheme } from 'next-themes';
-
+import { usePathname } from 'next/navigation';
+import { SessionProvider } from 'next-auth/react';
 
 // Lazy load ThemeProvider
 const ThemeProvider = dynamic(() => import('@/components/theme-provider').then((mod) => mod.ThemeProvider), { 
@@ -27,30 +27,13 @@ const ThemeProvider = dynamic(() => import('@/components/theme-provider').then((
 const inter = Inter({ subsets: ['latin'] });
 const josefinSans = Josefin_Sans({ subsets: ['latin'] });
 
-const loadingStates = [
-    {
-        text: "Loading Started...",
-    },
-    {
-        text: "Verifying NIC format...",
-    },
-    {
-        text: "Extracting details from NIC...",
-    },
-    {
-        text: "Cross-checking validity...",
-    },
-    {
-        text: "Ensuring accuracy and security...",
-    },
-    {
-        text: "Done! Your Report is ready...",
-    },
-];
-
 export default function RootLayout({ children }: { readonly children: React.ReactNode; }) {
     const [loading, setLoading] = useState(false);
     const { resolvedTheme } = useTheme();
+    const pathname = usePathname();
+    
+    const isDashboard = pathname === '/dashboard'; 
+    
     return (
         <html lang="en" suppressHydrationWarning className="h-full">
             <head>
@@ -64,19 +47,20 @@ export default function RootLayout({ children }: { readonly children: React.Reac
             <body className={cn(inter.className, 'h-full min-h-screen')}>
                 <SpeedInsights />
                 <Analytics />
+                <SessionProvider>
                 <TransitionWrapper setLoading={setLoading}>
                     <SettingsProvider>
                         <LayoutWrapper>
                             <TooltipProvider> 
                                 <ThemeProvider>
                                     <LanguageProvider>
-                                        <MainNavbar />
+                                        {!isDashboard && <MainNavbar />} 
                                         <div style={{ color: resolvedTheme === 'dark' ? 'black' : 'white' }}>
-                                        <div id='web' className="flex-1">
-                                            {children}
+                                            <div id='web' className="flex-1">
+                                                {children}
+                                            </div>
                                         </div>
-                                        </div>
-                                        <MainFooter />
+                                        {!isDashboard && <MainFooter />} 
                                         <Toaster />
                                     </LanguageProvider>
                                 </ThemeProvider>
@@ -84,6 +68,7 @@ export default function RootLayout({ children }: { readonly children: React.Reac
                         </LayoutWrapper>
                     </SettingsProvider>
                 </TransitionWrapper>
+                </SessionProvider>
             </body>
         </html>
     );

@@ -9,6 +9,11 @@ import { GlobeDemo } from "./globe-component";
 import { PlaceholdersAndVanishInputDemo } from "@/components/vanishing_text";
 import BulkValidatorPage from "./bulk-val";
 
+interface BulkValidatorPageProps {
+  files: File[]; // Add the files property
+  onFilesChange: (hasFiles: boolean) => void;
+}
+
 export default function Home() {
   const { fontSize = 16 } = useSettings();
   const [files, setFiles] = useState<File[]>([]);
@@ -61,7 +66,6 @@ export default function Home() {
           {!hasFilesInBulkValidator && <PlaceholdersAndVanishInputDemo />}
 
           <BulkValidatorPage
-            files={files}  // Pass the files state
             onFilesChange={handleFilesInBulkValidator}
           />
         </div>

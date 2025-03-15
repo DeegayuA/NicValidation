@@ -17,7 +17,7 @@ export default function SignupForm() {
     console.log("Form submitted");
   };
   return (
-    <div className="max-w-md w-full my-10 mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
+    <div className="max-w-md w-full mt-20 mb-4 mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to NicValidator
       </h2>
@@ -26,7 +26,7 @@ export default function SignupForm() {
         yet
       </p>
 
-      <form className="my-8" onSubmit={handleSubmit}>
+      <form className="my-0" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
@@ -55,7 +55,7 @@ export default function SignupForm() {
         </button>
         <Button variant="ghost" onClick={() => window.location.href = '/login'} className="pr-2 w-full text-right text-xs" >Have Account? Log In</Button>
 
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-2 h-[1px] w-full" />
 
         <div className="flex flex-col space-y-4">
           <button

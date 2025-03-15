@@ -1,10 +1,10 @@
 'use client'
-import { BirthdayBarChart } from "@/app/dashboard/barchart"
-import Last5Files from "@/app/dashboard/Last5Files"
-import { VotingEligibilityChart } from "@/app/dashboard/piechart"
 import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { VotingEligibilityChart } from "./piechart"
+import { BirthdayBarChart } from "./barchart"
+import Last5Files from "./Last5Files"
 
 export default function Page() {
   return (

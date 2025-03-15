@@ -563,7 +563,7 @@
               />
               <Button
                 className="w-10 h-10"
-                variant="accent"
+                variant="default"
                 onClick={() => handleSubmit()} // Use default handleSubmit behavior
                 style={{ backgroundColor: accentColor }}
               >

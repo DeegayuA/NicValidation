@@ -12,7 +12,8 @@ export default function NotFound() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = {
-    error: searchParams.get("error")
+    error: searchParams.get("error"),
+    fullError: searchParams.get("fullError") // Assuming full error message might be passed
   };
 
   // Custom error message based on query parameter
@@ -24,6 +25,9 @@ export default function NotFound() {
   } else if (query.error === "Unauthorized") {
     errorMessage = "You are not authorized to perform this action.";
   }
+
+  // If there's a full error message, use that instead
+  const fullErrorMessage = query.fullError ? decodeURIComponent(query.fullError) : null;
 
   return (
     <main className="min-h-screen bg-background p-6 mt-[5rem]" style={{ fontSize: `${fontSize / 16}rem` }}>
@@ -38,7 +42,13 @@ export default function NotFound() {
         <Card className="p-8 text-center space-y-6">
           <h1 className="text-3xl font-bold">Authentication Error</h1>
           <p className="text-lg text-muted-foreground">{errorMessage}</p>
-          <Button asChild size="lg" variant="accent" className="w-full" style={{ backgroundColor: accentColor }}>
+          {fullErrorMessage && (
+            <div className="mt-4 p-4 bg-red-100 text-red-600 rounded">
+              <strong>Full Error Details:</strong>
+              <pre>{fullErrorMessage}</pre>
+            </div>
+          )}
+          <Button asChild size="lg" variant="default" className="w-full" style={{ backgroundColor: accentColor }}>
             <Link href="/">Go Back Home</Link>
           </Button>
         </Card>
